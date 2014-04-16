@@ -1,5 +1,34 @@
 var makeQueue = function(){
-  // Hey! Copy your code from src/functional/queue.js and paste it here
+  var instance = {};
+
+  // Use an object with numeric keys to store values
+  instance.storage = {};
+  instance.queueSize = 0;
+
+  _.extend(instance, queueMethods);
+
+  return instance;
 };
 
 var queueMethods = {};
+
+queueMethods.enqueue = function(value){
+    this.storage[this.queueSize] = value;
+    this.queueSize++;
+  };
+
+  queueMethods.dequeue = function(){
+    var item = this.storage[0];
+    this.queueSize && this.queueSize--;
+    delete this.storage[0];
+
+    for ( var i = 1; i < this.queueSize + 1; i++ ){
+      this.storage[i-1] = this.storage[i];
+    }
+
+    return item;
+  };
+
+  queueMethods.size = function(){
+    return this.queueSize;
+  };
