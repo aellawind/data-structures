@@ -44,4 +44,21 @@ describe("tree", function() {
     assert.isTrue(tree.contains(8));
   });
 
+  it("should have a 'parent' property and a 'removeFromParent' function", function(){
+    assert.isTrue('parent' in tree);
+    expect(tree.removeFromParent).to.be.a('function');
+  });
+
+  it("should have a parent property that refers to the parent node", function() {
+    expect(tree.parent).to.equal(null);
+    tree.addChild(5);
+    tree.children[0].addChild(6);
+    tree.addChild(7);
+    tree.children[1].addChild(14);
+    expect(tree.children[1].children[0].parent.value).to.equal(7);
+    expect(tree.children[0].parent.value).to.equal(5);
+  });
+
+
+
 });
