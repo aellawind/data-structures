@@ -13,9 +13,9 @@ HashTable.prototype.insert = function(k, v){
 
   // rehash function declaration
   var rehash = function(hTable){
-    var temp = [];
-    console.log("TEEEEMP");
-    console.log(temp);
+    var temp = this._storage;
+    console.log("TEEEEMP", temp);
+    // console.log(temp);
     for (var j = 0; j< hTable._limit/2; j++) {
       if (hTable._storage.get(j)) {
         var tuplesArray = hTable._storage.get(j);
