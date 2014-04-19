@@ -40,4 +40,22 @@ describe("binarySearchTree", function() {
     assert.notStrictEqual(array, [5,2,1,3]);
     expect(JSON.stringify(array)).to.equal(JSON.stringify([5,2,1,3]));
   });
+
+  it("should contain a breadthFirstMethod that returns an array", function () {
+    expect(binarySearchTree.breadthFirstLog).to.be.a('function');
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(3);
+    binarySearchTree.insert(1);
+    binarySearchTree.insert(21);
+    binarySearchTree.insert(32);
+    binarySearchTree.insert(8);
+    binarySearchTree.insert(25);
+    binarySearchTree.insert(15);
+    binarySearchTree.insert(6);
+    binarySearchTree.insert(4);
+    binarySearchTree.insert(30);
+    var nodes = binarySearchTree.breadthFirstLog();
+    expect(JSON.stringify(nodes)).to.equal(JSON.stringify([5,2,21,1,3,8,32,4,6,15,25,30]));
+
+  });
 });

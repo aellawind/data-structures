@@ -79,13 +79,38 @@ bstMethods.depthFirstLog = function(func) {
 
 };
 
+// .breadthFirstLog() method for binarySearchTee
+// logs the nodes contained in the tree using a breadth-first approach
+bstMethods.breadthFirstLog = function() {
+  var nodesArray = [this.value];
+  var nextArray = [this];
+
+  while ( nextArray.length > 0 ){
+
+    if ( nextArray[0].left ){
+      nodesArray.push(nextArray[0].left.value);
+      nextArray.push(nextArray[0].left);
+    }
+    if ( nextArray[0].right ){
+      nodesArray.push(nextArray[0].right.value);
+      nextArray.push(nextArray[0].right);
+    }
+
+    //console.dir(nextArray);
+    // nodesArray.push(nextArray[0].value);
+    //console.log("nodesArray", nodesArray);
+    nextArray.shift();
+    // debugger;
+  }
+
+  return nodesArray;
+};
+
 var makeBSTree = function(value) {
   var tree = {};
   tree.left = null;
   tree.right = null;
   tree.value = value;
-
-  console.log("node created with value: " + tree.value);
 
   return tree;
 }
