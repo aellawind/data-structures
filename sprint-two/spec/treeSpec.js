@@ -44,19 +44,33 @@ describe("tree", function() {
     assert.isTrue(tree.contains(8));
   });
 
-  it("should have a 'parent' property and a 'removeFromParent' function", function(){
-    assert.isTrue('parent' in tree);
-    expect(tree.removeFromParent).to.be.a('function');
-  });
 
   it("should have a parent property that refers to the parent node", function() {
+    assert.isTrue('parent' in tree);
     expect(tree.parent).to.equal(null);
     tree.addChild(5);
-    tree.children[0].addChild(6);
-    tree.addChild(7);
-    tree.children[1].addChild(14);
-    expect(tree.children[1].children[0].parent.value).to.equal(7);
-    expect(tree.children[0].parent.value).to.equal(5);
+    tree.addChild(6);
+    tree.children[0].addChild(7);
+    tree.children[1].addChild(8);
+    expect(tree.children[1].children[0].parent.value).to.equal(6);
+    expect(tree.children[0].children[0].parent.value).to.equal(5);
+  });
+
+  it("should have a 'removeFromParent' method which disassociates the tree from its parent", function(){
+    expect(tree.removeFromParent).to.be.a('function');
+    tree.addChild(5);
+    tree.addChild(6);
+    tree.children[0].addChild(7);
+    tree.children[1].addChild(8);
+    tree.children[1].addChild(4);
+    tree.addChild(2);
+    var removedTree = tree.removeFromParent(tree.children[1].children[0]);
+    assert.isNull(removedTree.parent);
+    assert.isFalse(tree.children[1].contains(8));
+    assert.isTrue(tree.children[1].contains(4));
+    var removedTree2 = tree.removeFromParent(tree.children[0].children[0]);
+    assert.isFalse(tree.children[0].contains(7));
+    assert.isNull(removedTree2.parent);
   });
 
 

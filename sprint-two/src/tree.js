@@ -1,7 +1,8 @@
-var makeTree = function(value){
+var makeTree = function(value,parent){
   var newTree = {};
   newTree.value = value;
   newTree.children = [];
+  newTree.parent = parent || null;
 
   for ( var key in treeMethods ){
     newTree[key] = treeMethods[key];
@@ -14,7 +15,8 @@ var makeTree = function(value){
 var treeMethods = {};
 
 treeMethods.addChild = function(value){
-  this.children.push(makeTree(value));
+  this.children.push(makeTree(value,this));
+
 };
 
 treeMethods.contains = function(target){
@@ -32,4 +34,18 @@ treeMethods.contains = function(target){
   }
   return contains;
 };
+
+treeMethods.removeFromParent = function(target) {
+  // remove this node from its parents' children array
+  console.log("44 " + target.parent);
+  var loc = target.parent.children.indexOf(target);
+  target.parent.children.splice(loc,1);
+  target.parent = null;
+  console.log("45 " + target.parent);
+  return target;
+
+};
+
+// parent property, which refers to the parent node or null when there is no node
+// removeFromParent() method, which disassociates the tree with its parent (in both directions)
 
